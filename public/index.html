@@ -126,11 +126,21 @@
         <!-- Bottom Bar for Navigation -->
         <nav class="bg-gray-100 border-t border-gray-200">
             <div class="container mx-auto px-6 py-2 flex justify-center items-center">
-                 <div class="flex space-x-8">
+                 <div class="flex items-center space-x-8">
                      <a href="#blueprints" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Blueprints</a>
                      <a href="#site-prep" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Site Prep</a>
                      <a href="#assembly" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Assembly</a>
                      <a href="#showcase" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Showcase</a>
+                     <!-- PDF Dropdown -->
+                     <div class="relative" id="pdf-dropdown-container">
+                        <button id="pdf-button" class="bg-red-600 text-white px-3 py-1 rounded-md font-semibold text-sm flex items-center space-x-2 hover:bg-red-700 transition">
+                            <span>PDF</span>
+                            <i class="fas fa-caret-down text-xs"></i>
+                        </button>
+                        <div id="pdf-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="https://lin-ver6.netlify.app/images/step_by_step_guide.pdf" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">StepByStep Guide</a>
+                        </div>
+                     </div>
                  </div>
             </div>
         </nav>
@@ -242,7 +252,7 @@ if __name__ == "__main__":
                 </div>
             </div>
             <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">
-                &copy; 2025 The AI Depot. All Rights Reserved. For A2P compliance: By interacting with our services, you consent to receive communications from us. You can opt-out at any time by replying STOP.
+                &copy; 2024 The AI Depot. All Rights Reserved. For A2P compliance: By interacting with our services, you consent to receive communications from us. You can opt-out at any time by replying STOP.
             </div>
         </div>
     </footer>
@@ -329,6 +339,20 @@ if __name__ == "__main__":
 
             sections.forEach(section => {
                 observer.observe(section);
+            });
+
+            // PDF Dropdown Logic
+            const pdfButton = document.getElementById('pdf-button');
+            const pdfMenu = document.getElementById('pdf-menu');
+            pdfButton.addEventListener('click', function() {
+                pdfMenu.classList.toggle('hidden');
+            });
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                const container = document.getElementById('pdf-dropdown-container');
+                if (!container.contains(event.target)) {
+                    pdfMenu.classList.add('hidden');
+                }
             });
         });
     </script>
