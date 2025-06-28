@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>From Idea to AI Employee: Your Interactive Guide</title>
-    <link rel="icon" href="https://aidepot.info/favicon" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/TheAIDepot/blueprint/main/public/images/taid_logo.jpg" type="image/jpeg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -231,4 +231,106 @@ if __name__ == "__main__":
                         <a href="https://www.instagram.com/" target="_blank" class="hover:text-accent transition"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <!-- Contact Info 
+                <!-- Contact Info -->
+                 <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Contact Us</h4>
+                     <ul class="space-y-2 text-sm">
+                         <li><p>The AI Depot</p></li>
+                         <li><a href="mailto:hello@theaidepot.online" class="hover:text-accent transition">hello@theaidepot.online</a></li>
+                         <li><a href="tel:+18447143690" class="hover:text-accent transition">(844) 714-3690</a></li>
+                     </ul>
+                </div>
+            </div>
+            <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">
+                &copy; 2024 The AI Depot. All Rights Reserved. For A2P compliance: By interacting with our services, you consent to receive communications from us. You can opt-out at any time by replying STOP.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Popup Modal for Code Annotations -->
+    <div id="popup-overlay" class="popup-overlay hidden"><div class="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full relative"><button id="close-popup" class="absolute top-2 right-4 text-2xl font-bold text-gray-500 hover:text-gray-800">&times;</button><h4 id="popup-title" class="text-2xl font-bold mb-4 text-accent"></h4><p id="popup-text" class="text-gray-700"></p></div></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Checklist interaction
+            const checklistItems = document.querySelectorAll('.checklist-item input');
+            checklistItems.forEach(item => {
+                item.addEventListener('change', function() {
+                    const instructions = this.parentElement.querySelector('.instructions');
+                    if (this.checked) { instructions.style.display = 'block'; } 
+                    else { instructions.style.display = 'none'; }
+                });
+            });
+
+            // Code annotation popup
+            const annotations = document.querySelectorAll('.code-annotation');
+            const popupOverlay = document.getElementById('popup-overlay');
+            const popupTitle = document.getElementById('popup-title');
+            const popupText = document.getElementById('popup-text');
+            const closePopup = document.getElementById('close-popup');
+
+            annotations.forEach(annotation => {
+                annotation.addEventListener('click', function() {
+                    popupTitle.textContent = this.dataset.title;
+                    popupText.textContent = this.dataset.text;
+                    popupOverlay.classList.remove('hidden');
+                });
+            });
+            function hidePopup() { popupOverlay.classList.add('hidden'); }
+            closePopup.addEventListener('click', hidePopup);
+            popupOverlay.addEventListener('click', (event) => { if (event.target === popupOverlay) hidePopup(); });
+
+            // Showcase Demo
+            const demoButtons = document.querySelectorAll('.demo-btn');
+            const chatWindow = document.getElementById('chat-window');
+            const scenarios = {
+                quote: [{ from: 'user', text: "Draft a follow-up email for a quote." },{ from: 'lin', text: "Of course. Here is a draft:\n\nSubject: Following up on your proposal\n\nHi [Client Name],\nHope you're having a great week. I'm just following up on the proposal I sent over. Please let me know if you have any questions.\n\nBest,\n[Your Name]" }],
+                materials: [{ from: 'user', text: "Research material prices." },{ from: 'lin', text: "Based on my research:\n- Supplier A: ~$15/sq. ft.\n- Supplier B: ~$14.50/sq. ft.\n- Supplier C: ~$15.25/sq. ft." }],
+                proposal: [{ from: 'user', text: "Draft an initial scope of work." },{ from: 'lin', text: "Here is a starting scope of work:\n\n1. Demolition\n2. Foundation\n3. Framing\n4. Decking & Railings\n5. Site Cleanup" }]
+            };
+            demoButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const scenario = scenarios[this.dataset.scenario];
+                    if (!scenario) return;
+                    addMessageToChat(scenario[0].from, scenario[0].text);
+                    setTimeout(() => addMessageToChat(scenario[1].from, scenario[1].text), 800);
+                });
+            });
+            function addMessageToChat(from, text) {
+                const wrapper = document.createElement('div');
+                const bubble = document.createElement('div');
+                bubble.classList.add('p-3', 'rounded-lg', 'max-w-md');
+                bubble.innerText = text;
+                if (from === 'user') {
+                    wrapper.classList.add('flex', 'justify-end');
+                    bubble.classList.add('bg-accent', 'text-white');
+                } else {
+                    wrapper.classList.add('flex', 'justify-start');
+                    bubble.classList.add('bg-gray-200');
+                }
+                wrapper.appendChild(bubble);
+                chatWindow.appendChild(wrapper);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            // Active nav state on scroll
+            const sections = document.querySelectorAll('#workshop-content section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
