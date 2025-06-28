@@ -6,6 +6,7 @@
     <title>From Idea to AI Employee: Your Interactive Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -89,6 +90,12 @@
              border-bottom-color: #4A69FF;
              color: #4A69FF;
         }
+        .social-icons a {
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #4A69FF;
+        }
     </style>
 </head>
 <body class="bg-primary">
@@ -110,8 +117,8 @@
                 </div>
                 <!-- Right: Contact Info -->
                 <div class="justify-self-end text-right text-sm">
-                    <p class="font-semibold text-gray-700">(844) 714-3690</p>
-                    <a href="mailto:hello@theaidepot.online" class="text-gray-600 hover:text-accent">hello@theaidepot.online</a>
+                    <a href="tel:+18447143690" class="font-semibold text-gray-700 hover:text-accent">(844) 714-3690</a>
+                    <a href="mailto:hello@theaidepot.online" class="block text-gray-600 hover:text-accent">hello@theaidepot.online</a>
                 </div>
             </div>
         </div>
@@ -198,26 +205,30 @@ if __name__ == "__main__":
     <footer class="bg-slate-800 text-gray-300 mt-16">
         <div class="container mx-auto px-6 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-                <!-- A2P Compliance & Consent -->
+                <!-- Appointment & Legal -->
                 <div>
-                    <h4 class="font-bold text-lg text-white mb-4">Messaging Consent</h4>
-                    <p class="text-sm mb-4">By providing your phone number, you agree to receive text messages from The AI Depot. Message and data rates may apply. Message frequency varies.</p>
-                    <div class="flex items-center justify-center md:justify-start">
-                        <input type="checkbox" id="sms-consent" class="h-4 w-4 text-accent bg-gray-600 border-gray-500 rounded focus:ring-accent">
-                        <label for="sms-consent" class="ml-2 text-sm">I agree to receive marketing messages.</label>
+                    <h4 class="font-bold text-lg text-white mb-4">Book a Consultation</h4>
+                    <p class="text-sm mb-4">Ready to see how an AI assistant can transform your business? Set an appointment today.</p>
+                    <a href="https://api.leadconnectorhq.com/widget/otl/vINX8cWBL?slug=the-ai-depot-personal-calendar-xgzgq9c_e" target="_blank" class="inline-block bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+                        Set an Appointment
+                    </a>
+                     <div class="mt-6 text-sm">
+                        <a href="#" class="hover:text-accent transition underline">Privacy Policy</a>
+                        <span class="mx-2">|</span>
+                        <a href="#" class="hover:text-accent transition underline">Terms of Service</a>
                     </div>
-                    <p class="text-xs mt-2">You can opt-out at any time by replying STOP.</p>
                 </div>
-                <!-- Social & Legal Links -->
+                <!-- Social Media -->
                 <div>
-                    <h4 class="font-bold text-lg text-white mb-4">Connect & Review</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-accent transition">Facebook</a></li>
-                        <li><a href="#" class="hover:text-accent transition">Instagram</a></li>
-                        <li><a href="https://github.com/TheAIDepot" target="_blank" class="hover:text-accent transition">GitHub</a></li>
-                        <li><a href="#" class="hover:text-accent transition">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-accent transition">Terms of Service</a></li>
-                    </ul>
+                    <h4 class="font-bold text-lg text-white mb-4">Follow Us</h4>
+                    <div class="social-icons flex justify-center md:justify-start space-x-5 text-2xl">
+                        <a href="https://www.youtube.com/@TheAIDepotChannel" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/TheAIDepot_3690" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/the-ai-depot-241109360/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@theaidepot8" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61576271914774" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
                 <!-- Contact Info -->
                  <div>
@@ -225,12 +236,12 @@ if __name__ == "__main__":
                      <ul class="space-y-2 text-sm">
                          <li><p>The AI Depot</p></li>
                          <li><a href="mailto:hello@theaidepot.online" class="hover:text-accent transition">hello@theaidepot.online</a></li>
-                         <li><p>(844) 714-3690</p></li>
+                         <li><a href="tel:+18447143690" class="hover:text-accent transition">(844) 714-3690</a></li>
                      </ul>
                 </div>
             </div>
             <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">
-                &copy; 2024 The AI Depot. All Rights Reserved.
+                &copy; 2024 The AI Depot. All Rights Reserved. For A2P compliance: By interacting with our services, you consent to receive communications from us. You can opt-out at any time by replying STOP.
             </div>
         </div>
     </footer>
