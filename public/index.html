@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutral Harmony -->
-    <!-- Application Structure Plan: The SPA has been redesigned into a two-column dashboard layout. A persistent header contains the primary branding. Below it, the main content area (the "workshop") is on the left, and a sticky vertical navigation menu is on the right. This structure was chosen to create a more focused, app-like experience, allowing the user to always see their navigation options while scrolling through the workshop stations on the left. This improves usability and context compared to a standard top-nav layout. -->
+    <!-- Application Structure Plan: The SPA is designed as a "Virtual Workshop," a task-oriented dashboard that transforms the linear guide into an interactive experience. This structure is more engaging for a hands-on audience like contractors. It's broken into thematic stations: "The Blueprint" (concepts), "Site Prep" (setup checklist), "Assembly" (interactive code), and "Showcase" (live demo). This non-linear approach allows users to explore sections as needed and provides a clear sense of progression, which is more effective for learning and retention than a simple text document. -->
     <!-- Visualization & Content Choices: Report Info: Core Concepts (Mind/Hands/Tools) -> Goal: Inform -> Viz/Method: Interactive HTML/CSS diagrams -> Interaction: Hover to reveal descriptions -> Justification: More engaging and memorable than static text. | Report Info: Setup Steps -> Goal: Guide Action -> Viz/Method: Interactive checklist -> Interaction: Click to mark complete, revealing instructions -> Justification: Creates a sense of accomplishment and clarifies the process. | Report Info: lin.py code -> Goal: Explain -> Viz/Method: Styled code block with annotations -> Interaction: Clickable markers on code to show pop-up explanations -> Justification: Demystifies code without cluttering the main view. | Report Info: LIN's Capabilities -> Goal: Demonstrate Value -> Viz/Method: Simulated chat interface -> Interaction: Buttons trigger pre-written demo scenarios -> Justification: Makes the AI's value tangible and exciting. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -85,9 +85,9 @@
             align-items: center;
             z-index: 50;
         }
-        .vertical-nav a.active {
-            background-color: #4A69FF;
-            color: white;
+        .nav-link.active {
+             border-bottom-color: #4A69FF;
+             color: #4A69FF;
         }
     </style>
 </head>
@@ -117,13 +117,12 @@
         </div>
         <!-- Bottom Bar for Navigation -->
         <nav class="bg-gray-100 border-t border-gray-200">
-            <div class="container mx-auto px-6 py-2 flex justify-between items-center">
-                 <h1 class="text-lg font-bold text-accent">AI Employee Workshop</h1>
-                 <div class="hidden md:flex space-x-8">
-                     <a href="#blueprints" class="text-gray-600 hover:text-accent font-semibold">Blueprints</a>
-                     <a href="#site-prep" class="text-gray-600 hover:text-accent font-semibold">Site Prep</a>
-                     <a href="#assembly" class="text-gray-600 hover:text-accent font-semibold">Assembly</a>
-                     <a href="#showcase" class="text-gray-600 hover:text-accent font-semibold">Showcase</a>
+            <div class="container mx-auto px-6 py-2 flex justify-center items-center">
+                 <div class="flex space-x-8">
+                     <a href="#blueprints" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Blueprints</a>
+                     <a href="#site-prep" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Site Prep</a>
+                     <a href="#assembly" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Assembly</a>
+                     <a href="#showcase" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Showcase</a>
                  </div>
             </div>
         </nav>
@@ -131,117 +130,110 @@
 
     <!-- Main App Layout -->
     <div class="container mx-auto px-6 py-8">
-        <div class="md:grid md:grid-cols-12 md:gap-8">
-            <!-- Left Content Pane -->
-            <main class="md:col-span-9">
-                <!-- Introduction -->
-                <section class="text-center mb-16">
-                    <h2 class="text-4xl font-bold mb-4">From Idea to AI Employee</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">This interactive guide transforms the process of building your own AI assistant into a hands-on project. Use the navigation on the right to jump between workshop stations.</p>
+        <main>
+            <!-- Introduction -->
+            <section class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">From Idea to AI Employee</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">This interactive guide transforms the process of building your own AI assistant into a hands-on project. Use the navigation above to jump between workshop stations.</p>
+            </section>
+
+            <!-- Workshop Stations Container -->
+            <div id="workshop-content">
+                <!-- Station 1: Blueprints -->
+                <section id="blueprints" class="mb-16 scroll-mt-32">
+                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 1: The Blueprints</h3>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item"><div class="text-6xl mb-4">🧠</div><h4 class="text-xl font-bold mb-2">The Mind</h4><p class="text-gray-500">The AI's reasoning engine.</p><div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Thinks, reasons, and plans. Understands language and has a vast knowledge of the world. Runs entirely on your computer, keeping your data private.<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div></div>
+                        <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item"><div class="text-6xl mb-4">👐</div><h4 class="text-xl font-bold mb-2">The Hands</h4><p class="text-gray-500">The agent's execution engine.</p><div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Listens for instructions from The Mind. Uses your computer's tools to execute code, manage workflows, and perform actions.<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div></div>
+                        <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item"><div class="text-6xl mb-4">🧰</div><h4 class="text-xl font-bold mb-2">The Toolbox</h4><p class="text-gray-500">The software for the job.</p><div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Includes Docker Desktop (the workshop floor), a Local LLM (the power plant), and a Text Editor (the blueprint table).<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div></div>
+                    </div>
                 </section>
 
-                <!-- Workshop Stations Container -->
-                <div id="workshop-content">
-                    <!-- Station 1: Blueprints -->
-                    <section id="blueprints" class="mb-16 scroll-mt-32">
-                        <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 1: The Blueprints</h3>
-                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item">
-                                <div class="text-6xl mb-4">🧠</div>
-                                <h4 class="text-xl font-bold mb-2">The Mind</h4>
-                                <p class="text-gray-500">The AI's reasoning engine.</p>
-                                <div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Thinks, reasons, and plans. Understands language and has a vast knowledge of the world. Runs entirely on your computer, keeping your data private.<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div>
-                            </div>
-                            <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item">
-                                <div class="text-6xl mb-4">👐</div>
-                                <h4 class="text-xl font-bold mb-2">The Hands</h4>
-                                <p class="text-gray-500">The agent's execution engine.</p>
-                                <div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Listens for instructions from The Mind. Uses your computer's tools to execute code, manage workflows, and perform actions.<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div>
-                            </div>
-                            <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item">
-                                <div class="text-6xl mb-4">🧰</div>
-                                <h4 class="text-xl font-bold mb-2">The Toolbox</h4>
-                                <p class="text-gray-500">The software for the job.</p>
-                                <div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Includes Docker Desktop (the workshop floor), a Local LLM (the power plant), and a Text Editor (the blueprint table).<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div>
-                            </div>
-                        </div>
-                    </section>
+                <!-- Station 2: Site Prep -->
+                <section id="site-prep" class="mb-16 scroll-mt-32">
+                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 2: Site Prep Checklist</h3>
+                    <div class="max-w-2xl mx-auto bg-secondary p-8 rounded-lg shadow-lg"><p class="text-center text-gray-600 mb-6">Complete these one-time setup steps. Click each item to see instructions and mark it as complete.</p><ul class="space-y-4"><li class="checklist-item"><input type="checkbox" id="step1" class="hidden"><label for="step1" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Install Docker Desktop</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">Go to <a href="https://www.docker.com" target="_blank" class="text-accent underline">docker.com</a>, download, and install. Restart if prompted.</div></li><li class="checklist-item"><input type="checkbox" id="step2" class="hidden"><label for="step2" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Get Your AI Model</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">Open your terminal and run: <code class="bg-gray-200 px-2 py-1 rounded">docker model pull ai/smollm2</code></div></li><li class="checklist-item"><input type="checkbox" id="step3" class="hidden"><label for="step3" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Enable API Connection</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">In Docker Desktop, go to Settings ⚙️ > Features in development. Check "Enable host-side TCP support" and note the port number. Click "Apply & Restart".</div></li></ul></div>
+                </section>
 
-                    <!-- Station 2: Site Prep -->
-                    <section id="site-prep" class="mb-16 scroll-mt-32">
-                        <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 2: Site Prep Checklist</h3>
-                        <div class="max-w-2xl mx-auto md:mx-0 bg-secondary p-8 rounded-lg shadow-lg">
-                            <p class="text-center text-gray-600 mb-6">Complete these one-time setup steps. Click each item to see instructions and mark it as complete.</p>
-                            <ul class="space-y-4">
-                                <li class="checklist-item"><input type="checkbox" id="step1" class="hidden"><label for="step1" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Install Docker Desktop</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">Go to <a href="https://www.docker.com" target="_blank" class="text-accent underline">docker.com</a>, download, and install. Restart if prompted.</div></li>
-                                <li class="checklist-item"><input type="checkbox" id="step2" class="hidden"><label for="step2" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Get Your AI Model</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">Open your terminal and run: <code class="bg-gray-200 px-2 py-1 rounded">docker model pull ai/smollm2</code></div></li>
-                                <li class="checklist-item"><input type="checkbox" id="step3" class="hidden"><label for="step3" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Enable API Connection</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">In Docker Desktop, go to Settings ⚙️ > Features in development. Check "Enable host-side TCP support" and note the port number. Click "Apply & Restart".</div></li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <!-- Station 3: Assembly -->
-                    <section id="assembly" class="mb-16 scroll-mt-32">
-                        <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 3: The Assembly Line</h3>
-                        <div class="bg-slate-800 text-white p-6 rounded-lg shadow-lg relative"><div class="code-annotation" style="top: 10px; right: 10px;" data-title="Part 1: The Mind" data-text="This 'LanguageModel' class is the electrical panel. It's the code that connects to the AI 'power plant' running in Docker, allowing LIN to send prompts and receive plans.">1</div><div class="code-annotation" style="top: 150px; right: 10px;" data-title="Part 2: The Hands" data-text="These functions are LIN's 'power tools.' They define the actual actions LIN can take, like running code or getting your input.">2</div><div class="code-annotation" style="top: 250px; right: 10px;" data-title="Part 3: The Spec Sheet" data-text="This logic manages LIN's configuration. The first time you run the program, it will ask for your business details to create a custom 'spec sheet' (config.py).">3</div><div class="code-annotation" style="top: 400px; right: 10px;" data-title="Part 4: The Foreman" data-text="The 'AutonomousAgent' class is the foreman. It manages the whole operation, from creating a plan to executing it step-by-step using its tools.">4</div><pre class="overflow-x-auto"><code class="language-python"># For demonstration, a shortened version of the lin.py code is shown.
+                <!-- Station 3: Assembly -->
+                <section id="assembly" class="mb-16 scroll-mt-32">
+                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 3: The Assembly Line</h3>
+                    <div class="bg-slate-800 text-white p-6 rounded-lg shadow-lg relative"><div class="code-annotation" style="top: 10px; right: 10px;" data-title="Part 1: The Mind" data-text="This 'LanguageModel' class is the electrical panel. It's the code that connects to the AI 'power plant' running in Docker, allowing LIN to send prompts and receive plans.">1</div><div class="code-annotation" style="top: 150px; right: 10px;" data-title="Part 2: The Hands" data-text="These functions are LIN's 'power tools.' They define the actual actions LIN can take, like running code or getting your input.">2</div><div class="code-annotation" style="top: 250px; right: 10px;" data-title="Part 3: The Spec Sheet" data-text="This logic manages LIN's configuration. The first time you run the program, it will ask for your business details to create a custom 'spec sheet' (config.py).">3</div><div class="code-annotation" style="top: 400px; right: 10px;" data-title="Part 4: The Foreman" data-text="The 'AutonomousAgent' class is the foreman. It manages the whole operation, from creating a plan to executing it step-by-step using its tools.">4</div><pre class="overflow-x-auto"><code class="language-python"># For demonstration, a shortened version of the lin.py code is shown.
 # The full code creates a single file to run your agent.
 import os, json, requests
 
 # PART 1: The Reasoning Engine (The "Mind")
 class LanguageModel:
-    def __init__(self, base_url="http://localhost:12434"):
-        # ... connection logic
+    def __init__(self, base_url="http://localhost:12434"): # ... connection logic
         pass
-
 # PART 2: The Tools (The "Hands")
-def run_code_interpreter(code_to_run):
-    # ... code execution logic
+def run_code_interpreter(code_to_run): # ... code execution logic
     return "Code executed."
-
 # PART 3: Configuration Management (The "Spec Sheet")
-def load_or_create_config():
-    # ... logic to create or load config.py
+def load_or_create_config(): # ... logic to create or load config.py
     return {"owner_name": "Contractor"}
-
 # PART 4: The Autonomous Agent (The "Foreman")
 class AutonomousAgent:
-    def __init__(self, name="LIN"):
-        # ... initialization logic
+    def __init__(self, name="LIN"): # ... initialization logic
         pass
-        
-    def run(self):
-        # ... main agent loop
+    def run(self): # ... main agent loop
         pass
-
 # PART 5: The Main Entry Point ("Turn on the Power")
 if __name__ == "__main__":
     agent = AutonomousAgent()
     agent.run()
                 </code></pre></div>
-                    </section>
+                </section>
 
-                    <!-- Station 4: Showcase -->
-                    <section id="showcase" class="scroll-mt-32">
-                        <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 4: Job Site Showcase</h3>
-                        <div class="max-w-3xl mx-auto md:mx-0 bg-secondary rounded-lg shadow-lg p-4 flex flex-col h-[500px]"><div id="chat-window" class="flex-grow overflow-y-auto p-4 space-y-4"><div class="flex justify-start"><div class="bg-gray-200 p-3 rounded-lg max-w-xs">Hello! I'm LIN. What can I do for you? Try a demo below.</div></div></div><div class="p-4 border-t border-gray-200 flex flex-wrap gap-2 justify-center"><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="quote">Draft Follow-up Email</button><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="materials">Research Materials</button><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="proposal">Draft Proposal Scope</button></div></div>
-                    </section>
+                <!-- Station 4: Showcase -->
+                <section id="showcase" class="scroll-mt-32">
+                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 4: Job Site Showcase</h3>
+                    <div class="max-w-3xl mx-auto bg-secondary rounded-lg shadow-lg p-4 flex flex-col h-[500px]"><div id="chat-window" class="flex-grow overflow-y-auto p-4 space-y-4"><div class="flex justify-start"><div class="bg-gray-200 p-3 rounded-lg max-w-xs">Hello! I'm LIN. What can I do for you? Try a demo below.</div></div></div><div class="p-4 border-t border-gray-200 flex flex-wrap gap-2 justify-center"><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="quote">Draft Follow-up Email</button><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="materials">Research Materials</button><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="proposal">Draft Proposal Scope</button></div></div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- New Footer Section -->
+    <footer class="bg-slate-800 text-gray-300 mt-16">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- A2P Compliance & Consent -->
+                <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Messaging Consent</h4>
+                    <p class="text-sm mb-4">By providing your phone number, you agree to receive text messages from The AI Depot. Message and data rates may apply. Message frequency varies.</p>
+                    <div class="flex items-center justify-center md:justify-start">
+                        <input type="checkbox" id="sms-consent" class="h-4 w-4 text-accent bg-gray-600 border-gray-500 rounded focus:ring-accent">
+                        <label for="sms-consent" class="ml-2 text-sm">I agree to receive marketing messages.</label>
+                    </div>
+                    <p class="text-xs mt-2">You can opt-out at any time by replying STOP.</p>
                 </div>
-            </main>
-
-            <!-- Right Vertical Navigation -->
-            <aside class="md:col-span-3 mt-12 md:mt-0">
-                <div class="md:sticky md:top-36 bg-secondary p-6 rounded-lg shadow-lg vertical-nav">
-                    <h4 class="font-bold text-lg mb-4 border-b pb-2">Navigation</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#blueprints" class="block font-semibold p-3 rounded-md text-gray-700 hover:bg-gray-100">Station 1: Blueprints</a></li>
-                        <li><a href="#site-prep" class="block font-semibold p-3 rounded-md text-gray-700 hover:bg-gray-100">Station 2: Site Prep</a></li>
-                        <li><a href="#assembly" class="block font-semibold p-3 rounded-md text-gray-700 hover:bg-gray-100">Station 3: Assembly</a></li>
-                        <li><a href="#showcase" class="block font-semibold p-3 rounded-md text-gray-700 hover:bg-gray-100">Station 4: Showcase</a></li>
+                <!-- Social & Legal Links -->
+                <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Connect & Review</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-accent transition">Facebook</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Instagram</a></li>
+                        <li><a href="https://github.com/TheAIDepot" target="_blank" class="hover:text-accent transition">GitHub</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Terms of Service</a></li>
                     </ul>
                 </div>
-            </aside>
+                <!-- Contact Info -->
+                 <div>
+                    <h4 class="font-bold text-lg text-white mb-4">Contact Us</h4>
+                     <ul class="space-y-2 text-sm">
+                         <li><p>The AI Depot</p></li>
+                         <li><a href="mailto:hello@theaidepot.online" class="hover:text-accent transition">hello@theaidepot.online</a></li>
+                         <li><p>(844) 714-3690</p></li>
+                     </ul>
+                </div>
+            </div>
+            <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">
+                &copy; 2024 The AI Depot. All Rights Reserved.
+            </div>
         </div>
-    </div>
+    </footer>
     
     <!-- Popup Modal for Code Annotations -->
     <div id="popup-overlay" class="popup-overlay hidden"><div class="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full relative"><button id="close-popup" class="absolute top-2 right-4 text-2xl font-bold text-gray-500 hover:text-gray-800">&times;</button><h4 id="popup-title" class="text-2xl font-bold mb-4 text-accent"></h4><p id="popup-text" class="text-gray-700"></p></div></div>
@@ -311,12 +303,13 @@ if __name__ == "__main__":
 
             // Active nav state on scroll
             const sections = document.querySelectorAll('#workshop-content section');
-            const navLinks = document.querySelectorAll('.vertical-nav a');
+            const navLinks = document.querySelectorAll('.nav-link');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
                         navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
                         });
                     }
                 });
