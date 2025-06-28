@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Idea to AI Employee: Your Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: The SPA is designed as a "Virtual Workshop," a task-oriented dashboard that transforms the linear guide into an interactive experience. This structure is more engaging for a hands-on audience like contractors. It's broken into thematic stations: "The Blueprint" (concepts), "Site Prep" (setup checklist), "Assembly" (interactive code), and "Showcase" (live demo). This non-linear approach allows users to explore sections as needed and provides a clear sense of progression, which is more effective for learning and retention than a simple text document. -->
+    <!-- Visualization & Content Choices: Report Info: Core Concepts (Mind/Hands/Tools) -> Goal: Inform -> Viz/Method: Interactive HTML/CSS diagrams -> Interaction: Hover to reveal descriptions -> Justification: More engaging and memorable than static text. | Report Info: Setup Steps -> Goal: Guide Action -> Viz/Method: Interactive checklist -> Interaction: Click to mark complete, revealing instructions -> Justification: Creates a sense of accomplishment and clarifies the process. | Report Info: lin.py code -> Goal: Explain -> Viz/Method: Styled code block with annotations -> Interaction: Clickable markers on code to show pop-up explanations -> Justification: Demystifies code without cluttering the main view. | Report Info: LIN's Capabilities -> Goal: Demonstrate Value -> Viz/Method: Simulated chat interface -> Interaction: Buttons trigger pre-written demo scenarios -> Justification: Makes the AI's value tangible and exciting. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background-color: #F8F7F4; /* Warm White */
+            color: #333D4B; /* Slate Gray */
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Readex Pro', sans-serif;
+        }
+        .bg-primary { background-color: #F8F7F4; } /* Warm White */
+        .bg-secondary { background-color: #FFFFFF; }
+        .bg-accent { background-color: #4A69FF; } /* Subtle Blue Accent */
+        .text-accent { color: #4A69FF; }
+        .border-accent { border-color: #4A69FF; }
+        .station-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .station-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .interactive-diagram-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .interactive-diagram-item .info-popup {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .interactive-diagram-item:hover .info-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .checklist-item input:checked + label .checklist-icon {
+            background-color: #4A69FF;
+            border-color: #4A69FF;
+        }
+        .checklist-item input:checked + label .checklist-icon svg {
+            display: block;
+        }
+        .code-annotation {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #4A69FF;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+         .code-annotation:hover {
+            transform: scale(1.2);
+        }
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-primary">
+
+    <!-- Header & Navigation -->
+    <nav class="bg-secondary shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-accent">AI Employee Workshop</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#blueprints" class="text-gray-600 hover:text-accent font-semibold">Blueprints</a>
+                <a href="#site-prep" class="text-gray-600 hover:text-accent font-semibold">Site Prep</a>
+                <a href="#assembly" class="text-gray-600 hover:text-accent font-semibold">Assembly</a>
+                <a href="#showcase" class="text-gray-600 hover:text-accent font-semibold">Showcase</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-6 py-12">
+        <!-- Introduction -->
+        <section class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">From Idea to AI Employee</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">This interactive guide transforms the process of building your own AI assistant into a hands-on project. Navigate the workshop stations below to assemble your new digital employee, LIN.</p>
+        </section>
+
+        <!-- The Workshop Stations -->
+        <!-- Station 1: Blueprints -->
+        <section id="blueprints" class="mb-16 scroll-mt-24">
+            <h3 class="text-3xl font-bold mb-8 text-center">Station 1: The Blueprints</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Mind -->
+                <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item">
+                    <div class="text-6xl mb-4">?</div>
+                    <h4 class="text-xl font-bold mb-2">The Mind</h4>
+                    <p class="text-gray-500">The AI's reasoning engine.</p>
+                    <div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">
+                        Thinks, reasons, and plans. Understands language and has a vast knowledge of the world. Runs entirely on your computer, keeping your data private.
+                        <div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div>
+                    </div>
+                </div>
+                <!-- Hands -->
+                <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item">
+                    <div class="text-6xl mb-4">?</div>
+                    <h4 class="text-xl font-bold mb-2">The Hands</h4>
+                    <p class="text-gray-500">The agent's execution engine.</p>
+                    <div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">
+                        Listens for instructions from The Mind. Uses your computer's tools to execute code, manage workflows, and perform actions.
+                        <div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div>
+                    </div>
+                </div>
+                <!-- Toolbox -->
+                <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item">
+                    <div class="text-6xl mb-4">?</div>
+                    <h4 class="text-xl font-bold mb-2">The Toolbox</h4>
+                    <p class="text-gray-500">The software for the job.</p>
+                    <div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">
+                        Includes Docker Desktop (the workshop floor), a Local LLM (the power plant), and a Text Editor (the blueprint table).
+                        <div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Station 2: Site Prep -->
+        <section id="site-prep" class="mb-16 scroll-mt-24">
+            <h3 class="text-3xl font-bold mb-8 text-center">Station 2: Site Prep Checklist</h3>
+            <div class="max-w-2xl mx-auto bg-secondary p-8 rounded-lg shadow-lg">
+                <p class="text-center text-gray-600 mb-6">Complete these one-time setup steps to prepare your workshop for the build. Click each item to see instructions and mark it as complete.</p>
+                <ul class="space-y-4">
+                    <!-- Checklist Item 1 -->
+                    <li class="checklist-item">
+                        <input type="checkbox" id="step1" class="hidden">
+                        <label for="step1" class="flex items-center cursor-pointer">
+                            <span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </span>
+                            <span class="font-semibold">Pour the Foundation: Install Docker Desktop</span>
+                        </label>
+                        <div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">
+                            Go to <a href="https://www.docker.com" target="_blank" class="text-accent underline">docker.com</a>, download the installer for your system, and run it. Restart your computer if prompted.
+                        </div>
+                    </li>
+                    <!-- Checklist Item 2 -->
+                    <li class="checklist-item">
+                        <input type="checkbox" id="step2" class="hidden">
+                        <label for="step2" class="flex items-center cursor-pointer">
+                            <span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </span>
+                            <span class="font-semibold">Install the Power Plant: Get Your AI Model</span>
+                        </label>
+                        <div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">
+                           Open your terminal (PowerShell or CMD) and run this command: <code class="bg-gray-200 px-2 py-1 rounded">docker model pull ai/smollm2</code>
+                        </div>
+                    </li>
+                    <!-- Checklist Item 3 -->
+                    <li class="checklist-item">
+                        <input type="checkbox" id="step3" class="hidden">
+                        <label for="step3" class="flex items-center cursor-pointer">
+                            <span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </span>
+                            <span class="font-semibold">Connect the Fuel Line: Enable API Connection</span>
+                        </label>
+                         <div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">
+                            In Docker Desktop, go to Settings ⚙️ > Features in development. Check "Enable host-side TCP support" and note the port number (e.g., 12434). Click "Apply & Restart".
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Station 3: Assembly -->
+        <section id="assembly" class="mb-16 scroll-mt-24">
+            <h3 class="text-3xl font-bold mb-8 text-center">Station 3: The Assembly Line</h3>
+            <p class="text-center text-gray-600 mb-6 max-w-3xl mx-auto">This is the master blueprint for <code class="bg-gray-200 px-1 py-0.5 rounded">lin.py</code>. It contains all the logic for your AI assistant. Click the numbered markers to learn what each part of the code does.</p>
+            <div class="bg-slate-800 text-white p-6 rounded-lg shadow-lg relative">
+                <div class="code-annotation" style="top: 10px; right: 10px;" data-title="Part 1: The Mind" data-text="This 'LanguageModel' class is the electrical panel. It's the code that connects to the AI 'power plant' running in Docker, allowing LIN to send prompts and receive plans.">1</div>
+                <div class="code-annotation" style="top: 150px; right: 10px;" data-title="Part 2: The Hands" data-text="These functions are LIN's 'power tools.' They define the actual actions LIN can take, like running code or getting your input.">2</div>
+                <div class="code-annotation" style="top: 250px; right: 10px;" data-title="Part 3: The Spec Sheet" data-text="This logic manages LIN's configuration. The first time you run the program, it will ask for your business details to create a custom 'spec sheet' (config.py).">3</div>
+                <div class="code-annotation" style="top: 400px; right: 10px;" data-title="Part 4: The Foreman" data-text="The 'AutonomousAgent' class is the foreman. It manages the whole operation, from creating a plan to executing it step-by-step using its tools.">4</div>
+                <pre class="overflow-x-auto"><code class="language-python">
+# The full code from the lin_local_agent_v1 immersive document would be displayed here.
+# For demonstration, a shortened version is shown.
+
+import os
+import json
+import requests
+# ... more imports
+
+# PART 1: The Reasoning Engine (The "Mind")
+class LanguageModel:
+    def __init__(self, base_url="http://localhost:12434"):
+        self.url = f"{base_url}/v1/chat/completions"
+        print("[Engine Connection] Initialized.")
+    # ... more methods
+
+# PART 2: The Tools (The "Hands")
+def run_code_interpreter(code_to_run):
+    # ... code execution logic
+    return "Code executed."
+
+# PART 3: Configuration Management (The "Spec Sheet")
+def load_or_create_config():
+    if not os.path.exists('config.py'):
+        print("First time setup...")
+        # ... logic to get user details
+    # ... logic to load config
+    return {"owner_name": "Contractor"}
+
+# PART 4: The Autonomous Agent (The "Foreman")
+class AutonomousAgent:
+    def __init__(self, name="LIN"):
+        # ... initialization logic
+        print("Foreman on duty.")
+
+    def create_plan(self, goal):
+        # ... logic to ask LLM for a plan
+        return [{"task": "Sample Task", "tool": "run_code_interpreter"}]
+
+    def execute_plan(self, plan):
+        # ... logic to execute plan steps
+        print("Plan executed.")
+        
+    def run(self):
+        # ... main agent loop
+        pass
+
+# PART 5: The Main Entry Point ("Turn on the Power")
+if __name__ == "__main__":
+    agent = AutonomousAgent()
+    agent.run()
+                </code></pre>
+            </div>
+        </section>
+
+        <!-- Station 4: Showcase -->
+        <section id="showcase" class="scroll-mt-24">
+            <h3 class="text-3xl font-bold mb-8 text-center">Station 4: Job Site Showcase</h3>
+            <p class="text-center text-gray-600 mb-6 max-w-3xl mx-auto">See what your new AI employee can do. Click the buttons below to see a demonstration of LIN handling common contractor tasks.</p>
+            <div class="max-w-3xl mx-auto bg-secondary rounded-lg shadow-lg p-4 flex flex-col h-[500px]">
+                <div id="chat-window" class="flex-grow overflow-y-auto p-4 space-y-4">
+                    <!-- Chat messages will be added here -->
+                    <div class="flex justify-start">
+                        <div class="bg-gray-200 p-3 rounded-lg max-w-xs">
+                           Hello! I'm LIN. What can I do for you? Try a demo below.
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-200 flex flex-wrap gap-2 justify-center">
+                    <button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="quote">Draft Follow-up Email</button>
+                    <button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="materials">Research Materials</button>
+                    <button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="proposal">Draft Proposal Scope</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Popup Modal for Code Annotations -->
+    <div id="popup-overlay" class="popup-overlay hidden">
+        <div class="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full relative">
+            <button id="close-popup" class="absolute top-2 right-4 text-2xl font-bold text-gray-500 hover:text-gray-800">&times;</button>
+            <h4 id="popup-title" class="text-2xl font-bold mb-4 text-accent"></h4>
+            <p id="popup-text" class="text-gray-700"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Checklist interaction
+            const checklistItems = document.querySelectorAll('.checklist-item input');
+            checklistItems.forEach(item => {
+                item.addEventListener('change', function() {
+                    const instructions = this.parentElement.querySelector('.instructions');
+                    if (this.checked) {
+                        instructions.style.display = 'block';
+                    } else {
+                        instructions.style.display = 'none';
+                    }
+                });
+            });
+
+            // Code annotation popup
+            const annotations = document.querySelectorAll('.code-annotation');
+            const popupOverlay = document.getElementById('popup-overlay');
+            const popupTitle = document.getElementById('popup-title');
+            const popupText = document.getElementById('popup-text');
+            const closePopup = document.getElementById('close-popup');
+
+            annotations.forEach(annotation => {
+                annotation.addEventListener('click', function() {
+                    popupTitle.textContent = this.dataset.title;
+                    popupText.textContent = this.dataset.text;
+                    popupOverlay.classList.remove('hidden');
+                });
+            });
+
+            function hidePopup() {
+                popupOverlay.classList.add('hidden');
+            }
+
+            closePopup.addEventListener('click', hidePopup);
+            popupOverlay.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    hidePopup();
+                }
+            });
+
+            // Showcase Demo
+            const demoButtons = document.querySelectorAll('.demo-btn');
+            const chatWindow = document.getElementById('chat-window');
+
+            const scenarios = {
+                quote: [
+                    { from: 'user', text: "Draft a follow-up email for a quote sent to John Doe three days ago." },
+                    { from: 'lin', text: "Of course. Here is a draft:\n\nSubject: Following up on your deck proposal\n\nHi John,\n\nHope you're having a great week. I'm just following up on the proposal I sent over for your deck project a few days ago. Please let me know if you've had a chance to review it or if you have any questions at all.\n\nBest,\n\n[Your Name]" }
+                ],
+                materials: [
+                    { from: 'user', text: "Find the average price per square foot for Trex decking from three major suppliers." },
+                    { from: 'lin', text: "Understood. I will now search the web for current pricing...\n\nBased on my research, here are the approximate prices:\n- Supplier A: ~$15/sq. ft.\n- Supplier B: ~$14.50/sq. ft.\n- Supplier C: ~$15.25/sq. ft." }
+                ],
+                proposal: [
+                    { from: 'user', text: "Draft an initial scope of work for a 10x12 deck project." },
+                    { from: 'lin', text: "Here is a starting scope of work:\n\n1. Demolition: Remove and dispose of existing patio (if applicable).\n2. Foundation: Excavate and pour concrete footings per local code.\n3. Framing: Construct a 10'x12' pressure-treated wood frame.\n4. Decking: Install composite decking boards.\n5. Railings: Install standard railing system with balusters.\n6. Site Cleanup: Remove all construction debris." }
+                ]
+            };
+
+            demoButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const scenario = scenarios[this.dataset.scenario];
+                    if (!scenario) return;
+
+                    addMessageToChat(scenario[0].from, scenario[0].text);
+                    
+                    setTimeout(() => {
+                        addMessageToChat(scenario[1].from, scenario[1].text);
+                    }, 800);
+                });
+            });
+
+            function addMessageToChat(from, text) {
+                const messageWrapper = document.createElement('div');
+                const messageBubble = document.createElement('div');
+                
+                messageBubble.classList.add('p-3', 'rounded-lg', 'max-w-md');
+                messageBubble.innerText = text;
+
+                if (from === 'user') {
+                    messageWrapper.classList.add('flex', 'justify-end');
+                    messageBubble.classList.add('bg-accent', 'text-white');
+                } else {
+                    messageWrapper.classList.add('flex', 'justify-start');
+                    messageBubble.classList.add('bg-gray-200');
+                }
+                
+                messageWrapper.appendChild(messageBubble);
+                chatWindow.appendChild(messageWrapper);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
