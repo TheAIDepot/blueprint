@@ -224,9 +224,9 @@ if __name__ == "__main__":
                         Set an Appointment
                     </a>
                      <div class="mt-6 text-sm">
-                        <a href="https://aidepot.info/privacy" target="_blank" class="hover:text-accent transition underline">Privacy Policy</a>
+                        <a href="privacypolicy.html" target="_blank" class="hover:text-accent transition underline">Privacy Policy</a>
                         <span class="mx-2">|</span>
-                        <a href="https://aidepot.info/terms" target="_blank" class="hover:text-accent transition underline">Terms of Service</a>
+                        <a href="termsofservice.html" target="_blank" class="hover:text-accent transition underline">Terms of Service</a>
                     </div>
                 </div>
                 <!-- Social Media -->
@@ -350,7 +350,7 @@ if __name__ == "__main__":
             // Close dropdown when clicking outside
             document.addEventListener('click', function(event) {
                 const container = document.getElementById('pdf-dropdown-container');
-                if (!container.contains(event.target)) {
+                if (container && !container.contains(event.target)) {
                     pdfMenu.classList.add('hidden');
                 }
             });
