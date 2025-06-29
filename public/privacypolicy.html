@@ -20,34 +20,45 @@
         .social-icons a:hover {
             color: #4A69FF;
         }
+        .bg-accent { background-color: #4A69FF; }
+        .text-accent { color: #4A69FF; }
     </style>
 </head>
 <body class="bg-primary">
 
     <!-- Header (Consistent with main page) -->
     <header class="bg-white shadow-md sticky top-0 z-40">
+        <!-- Top Bar for Branding and Contact -->
         <div class="container mx-auto px-6 py-3">
             <div class="grid grid-cols-3 items-center">
+                <!-- Left: Logo (Links to Home) -->
                 <div class="justify-self-start">
                     <a href="index.html" class="flex items-center space-x-3">
                         <img src="https://raw.githubusercontent.com/TheAIDepot/blueprint/main/public/images/taid_logo.jpg" alt="The AI Depot Logo" class="h-12 w-12 object-cover rounded-md">
                     </a>
                 </div>
+                <!-- Center: Business Name -->
                 <div class="justify-self-center text-center">
                      <a href="index.html" class="text-2xl font-bold text-slate-800">The AI Depot</a>
                 </div>
+                <!-- Right: Contact Info -->
                 <div class="justify-self-end text-right text-sm">
                     <a href="tel:+18447143690" class="font-semibold text-gray-700 hover:text-accent">(844) 714-3690</a>
                     <a href="mailto:hello@theaidepot.online" class="block text-gray-600 hover:text-accent">hello@theaidepot.online</a>
                 </div>
             </div>
         </div>
+        <!-- Bottom Bar for Page Title -->
+        <nav class="bg-gray-100 border-t border-gray-200">
+             <div class="container mx-auto px-6 py-2 flex justify-center items-center">
+                <h1 class="text-xl font-bold text-slate-700">Privacy Policy</h1>
+            </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-12">
         <div class="bg-white p-8 md:p-12 rounded-lg shadow-lg max-w-4xl mx-auto prose">
-            <h1>Privacy Policy</h1>
             <p><strong>Effective Date:</strong> June 29, 2025</p>
             <p>The AI Depot ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website `theaidepot.online` and use our services.</p>
             
@@ -77,26 +88,37 @@
         </div>
     </main>
 
-    <!-- Footer (Consistent with main page) -->
+    <!-- Footer (Exact match of main page) -->
     <footer class="bg-slate-800 text-gray-300 mt-16">
         <div class="container mx-auto px-6 py-12">
-             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- Appointment & Legal -->
                 <div>
                     <h4 class="font-bold text-lg text-white mb-4">Book a Consultation</h4>
-                    <a href="https://api.leadconnectorhq.com/widget/otl/vINX8cWBL?slug=the-ai-depot-personal-calendar-xgzgq9c_e" target="_blank" class="inline-block bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">Set an Appointment</a>
+                    <p class="text-sm mb-4">Ready to see how an AI assistant can transform your business? Set an appointment today.</p>
+                    <a href="https://api.leadconnectorhq.com/widget/otl/vINX8cWBL?slug=the-ai-depot-personal-calendar-xgzgq9c_e" target="_blank" class="inline-block bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+                        Set an Appointment
+                    </a>
+                     <div class="mt-6 text-sm whitespace-nowrap">
+                        <a href="privacypolicy.html" class="hover:text-accent transition underline">Privacy Policy</a>
+                        <span class="mx-2">|</span>
+                        <a href="termsofservice.html" class="hover:text-accent transition underline">Terms of Service</a>
+                    </div>
                 </div>
+                <!-- Social Media -->
                 <div>
                     <h4 class="font-bold text-lg text-white mb-4">Follow Us</h4>
                     <div class="social-icons flex justify-center md:justify-start space-x-5 text-2xl">
-                        <a href="https://www.youtube.com/@TheAIDepotChannel" target="_blank" class="hover:text-accent"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com/TheAIDepot_3690" target="_blank" class="hover:text-accent"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/in/the-ai-depot-241109360/" target="_blank" class="hover:text-accent"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.tiktok.com/@theaidepot8" target="_blank" class="hover:text-accent"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=61576271914774" target="_blank" class="hover:text-accent"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank" class="hover:text-accent"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@TheAIDepotChannel" target="_blank" class="hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/TheAIDepot_3690" target="_blank" class="hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/the-ai-depot-241109360/" target="_blank" class="hover:text-accent transition"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@theaidepot8" target="_blank" class="hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61576271914774" target="_blank" class="hover:text-accent transition"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="hover:text-accent transition"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div>
+                <!-- Contact Info -->
+                 <div>
                     <h4 class="font-bold text-lg text-white mb-4">Contact Us</h4>
                      <ul class="space-y-2 text-sm">
                          <li><p>The AI Depot</p></li>
@@ -105,7 +127,9 @@
                      </ul>
                 </div>
             </div>
-            <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">&copy; 2025 The AI Depot. All Rights Reserved.</div>
+            <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">
+                &copy; 2025 The AI Depot. All Rights Reserved. For A2P compliance: By interacting with our services, you consent to receive communications from us. You can opt-out at any time by replying STOP.
+            </div>
         </div>
     </footer>
 
