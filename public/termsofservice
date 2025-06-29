@@ -14,12 +14,18 @@
         .prose h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.25rem; font-weight: 600; }
         .prose p { margin-bottom: 1em; }
         .prose ul { list-style-type: disc; margin-left: 1.5em; margin-bottom: 1em; }
+        .social-icons a {
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #4A69FF;
+        }
     </style>
 </head>
 <body class="bg-primary">
 
     <!-- Header (Consistent with main page) -->
-    <header class="bg-secondary shadow-md sticky top-0 z-40">
+    <header class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-6 py-3">
             <div class="grid grid-cols-3 items-center">
                 <div class="justify-self-start">
@@ -93,9 +99,12 @@
                 <div>
                     <h4 class="font-bold text-lg text-white mb-4">Follow Us</h4>
                     <div class="social-icons flex justify-center md:justify-start space-x-5 text-2xl">
-                        <a href="https://www.youtube.com/@TheAIDepotChannel" target="_blank" class="hover:text-accent transition"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com/TheAIDepot_3690" target="_blank" class="hover:text-accent transition"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/in/the-ai-depot-241109360/" target="_blank" class="hover:text-accent transition"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.youtube.com/@TheAIDepotChannel" target="_blank" class="hover:text-accent"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/TheAIDepot_3690" target="_blank" class="hover:text-accent"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/the-ai-depot-241109360/" target="_blank" class="hover:text-accent"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.tiktok.com/@theaidepot8" target="_blank" class="hover:text-accent"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61576271914774" target="_blank" class="hover:text-accent"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="hover:text-accent"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div>
