@@ -8,409 +8,91 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutral Harmony -->
-    <!-- Application Structure Plan: The SPA is designed as a "Virtual Workshop," a task-oriented dashboard that transforms the linear guide into an interactive experience. This structure is more engaging for a hands-on audience like contractors. It's broken into thematic stations: "The Blueprint" (concepts), "Site Prep" (setup checklist), "Assembly" (interactive code), and "Showcase" (live demo). This non-linear approach allows users to explore sections as needed and provides a clear sense of progression, which is more effective for learning and retention than a simple text document. -->
-    <!-- Visualization & Content Choices: Report Info: Core Concepts (Mind/Hands/Tools) -> Goal: Inform -> Viz/Method: Interactive HTML/CSS diagrams -> Interaction: Hover to reveal descriptions -> Justification: More engaging and memorable than static text. | Report Info: Setup Steps -> Goal: Guide Action -> Viz/Method: Interactive checklist -> Interaction: Click to mark complete, revealing instructions -> Justification: Creates a sense of accomplishment and clarifies the process. | Report Info: lin.py code -> Goal: Explain -> Viz/Method: Styled code block with annotations -> Interaction: Clickable markers on code to show pop-up explanations -> Justification: Demystifies code without cluttering the main view. | Report Info: LIN's Capabilities -> Goal: Demonstrate Value -> Viz/Method: Simulated chat interface -> Interaction: Buttons trigger pre-written demo scenarios -> Justification: Makes the AI's value tangible and exciting. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body {
-            font-family: 'Work Sans', sans-serif;
-            background-color: #F8F7F4; /* Warm White */
-            color: #333D4B; /* Slate Gray */
-        }
-        h1, h2, h3, h4 {
-            font-family: 'Readex Pro', sans-serif;
-        }
-        .bg-primary { background-color: #F8F7F4; } /* Warm White */
-        .bg-secondary { background-color: #FFFFFF; }
-        .bg-accent { background-color: #4A69FF; } /* Subtle Blue Accent */
+        body { font-family: 'Work Sans', sans-serif; background-color: #F8F7F4; color: #333D4B; }
+        h1, h2, h3, h4 { font-family: 'Readex Pro', sans-serif; }
+        .bg-accent { background-color: #4A69FF; }
         .text-accent { color: #4A69FF; }
-        .border-accent { border-color: #4A69FF; }
-        .station-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .station-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-        }
-        .interactive-diagram-item {
-            position: relative;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .interactive-diagram-item .info-popup {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-        .interactive-diagram-item:hover .info-popup {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .checklist-item input:checked + label .checklist-icon {
-            background-color: #4A69FF;
-            border-color: #4A69FF;
-        }
-        .checklist-item input:checked + label .checklist-icon svg {
-            display: block;
-        }
-        .code-annotation {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            background-color: #4A69FF;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 16px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-         .code-annotation:hover {
-            transform: scale(1.2);
-        }
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-        }
-        .nav-link.active {
-             border-bottom-color: #4A69FF;
-             color: #4A69FF;
-        }
-        .social-icons a {
-            transition: color 0.3s ease;
-        }
-        .social-icons a:hover {
-            color: #4A69FF;
-        }
     </style>
 </head>
 <body class="bg-primary">
-
-    <!-- Top Branding Header -->
-    <header class="bg-secondary shadow-md sticky top-0 z-40">
-        <!-- Top Bar for Branding and Contact -->
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-6 py-3">
             <div class="grid grid-cols-3 items-center">
-                <!-- Left: Logo -->
                 <div class="justify-self-start">
-                    <a href="https://theaidepot.online" target="_blank" class="flex items-center space-x-3">
-                        <img src="https://raw.githubusercontent.com/TheAIDepot/blueprint/main/public/images/taid_logo.jpg" alt="The AI Depot Logo" class="h-12 w-12 object-cover rounded-md">
-                    </a>
+                    <a href="https://theaidepot.online" target="_blank"><img src="https://raw.githubusercontent.com/TheAIDepot/blueprint/main/public/images/taid_logo.jpg" alt="The AI Depot Logo" class="h-12 w-12 object-cover rounded-md"></a>
                 </div>
-                <!-- Center: Business Name -->
                 <div class="justify-self-center text-center">
                      <a href="https://theaidepot.online" target="_blank" class="text-2xl font-bold text-slate-800">The AI Depot</a>
                 </div>
-                <!-- Right: Contact Info -->
                 <div class="justify-self-end text-right text-sm">
                     <a href="tel:+18447143690" class="font-semibold text-gray-700 hover:text-accent">(844) 714-3690</a>
                     <a href="mailto:hello@theaidepot.online" class="block text-gray-600 hover:text-accent">hello@theaidepot.online</a>
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar for Navigation -->
-        <nav class="bg-gray-100 border-t border-gray-200">
-            <div class="container mx-auto px-6 py-2 flex justify-center items-center">
-                 <div class="flex items-center space-x-8">
-                     <a href="#blueprints" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Blueprints</a>
-                     <a href="#site-prep" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Site Prep</a>
-                     <a href="#assembly" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Assembly</a>
-                     <a href="#showcase" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Showcase</a>
-                     <a href="#contact" class="nav-link text-gray-600 hover:text-accent font-semibold py-1 border-b-2 border-transparent">Contact</a>
-                     <!-- PDF Dropdown -->
-                     <div class="relative" id="pdf-dropdown-container">
-                        <button id="pdf-button" class="bg-red-600 text-white px-3 py-1 rounded-md font-semibold text-sm flex items-center space-x-2 hover:bg-red-700 transition">
-                            <span>PDF</span>
-                            <i class="fas fa-caret-down text-xs"></i>
-                        </button>
-                        <div id="pdf-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                            <a href="https://lin-ver6.netlify.app/images/step_by_step_guide.pdf" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">StepByStep Guide</a>
-                        </div>
-                     </div>
-                 </div>
-            </div>
-        </nav>
     </header>
 
-    <!-- Main App Layout -->
-    <div class="container mx-auto px-6 py-8">
-        <main>
-            <!-- Introduction -->
-            <section class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">From Idea to AI Employee</h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">This interactive guide transforms the process of building your own AI assistant into a hands-on project. Use the navigation above to jump between workshop stations.</p>
-            </section>
-
-            <!-- Workshop Stations Container -->
-            <div id="workshop-content">
-                <!-- Station 1: Blueprints -->
-                <section id="blueprints" class="mb-16 scroll-mt-32">
-                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 1: The Blueprints</h3>
-                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item"><div class="text-6xl mb-4">🧠</div><h4 class="text-xl font-bold mb-2">The Mind</h4><p class="text-gray-500">The AI's reasoning engine.</p><div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Thinks, reasons, and plans. Understands language and has a vast knowledge of the world. Runs entirely on your computer, keeping your data private.<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div></div>
-                        <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item"><div class="text-6xl mb-4">👐</div><h4 class="text-xl font-bold mb-2">The Hands</h4><p class="text-gray-500">The agent's execution engine.</p><div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Listens for instructions from The Mind. Uses your computer's tools to execute code, manage workflows, and perform actions.<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div></div>
-                        <div class="bg-secondary p-6 rounded-lg shadow-lg text-center interactive-diagram-item"><div class="text-6xl mb-4">🧰</div><h4 class="text-xl font-bold mb-2">The Toolbox</h4><p class="text-gray-500">The software for the job.</p><div class="info-popup absolute bottom-full mb-2 w-64 bg-slate-700 text-white text-sm rounded-lg p-3 shadow-xl">Includes Docker Desktop (the workshop floor), a Local LLM (the power plant), and a Text Editor (the blueprint table).<div class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-700 rotate-45"></div></div></div>
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- Contact Form Section -->
+        <section id="contact" class="scroll-mt-32">
+            <h3 class="text-3xl font-bold mb-8 text-center">Start Your Project</h3>
+             <div id="form-container" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <p class="text-center text-gray-600 mb-6">Fill out the form below to get in touch.</p>
+                <form id="contact-form">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="name" id="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address <span class="text-red-500">*</span></label>
+                            <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent">
+                        </div>
+                         <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input type="tel" name="phone" id="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Tell us about your project</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent"></textarea>
+                        </div>
+                        <div class="pt-4">
+                             <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                     <input id="consent" name="consent" type="checkbox" required class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                     <label for="consent" class="text-gray-600">I consent to receive automated messages from The AI Depot.</label>
+                                </div>
+                             </div>
+                             <p class="text-xs text-gray-500 mt-4"><span class="text-red-500">*</span> Indicates a required field</p>
+                             <p class="text-xs text-gray-500 mt-2">By submitting this form, you agree to our <a href="termsofservice.html" class="underline hover:text-accent">Terms of Service</a> and <a href="privacypolicy.html" class="underline hover:text-accent">Privacy Policy</a>.</p>
+                        </div>
                     </div>
-                </section>
-
-                <!-- Station 2: Site Prep -->
-                <section id="site-prep" class="mb-16 scroll-mt-32">
-                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 2: Site Prep Checklist</h3>
-                    <div class="max-w-2xl mx-auto bg-secondary p-8 rounded-lg shadow-lg"><p class="text-center text-gray-600 mb-6">Complete these one-time setup steps. Click each item to see instructions and mark it as complete.</p><ul class="space-y-4"><li class="checklist-item"><input type="checkbox" id="step1" class="hidden"><label for="step1" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Install Docker Desktop</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">Go to <a href="https://www.docker.com" target="_blank" class="text-accent underline">docker.com</a>, download, and install. Restart if prompted.</div></li><li class="checklist-item"><input type="checkbox" id="step2" class="hidden"><label for="step2" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Get Your AI Model</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">Open your terminal and run: <code class="bg-gray-200 px-2 py-1 rounded">docker model pull ai/smollm2</code></div></li><li class="checklist-item"><input type="checkbox" id="step3" class="hidden"><label for="step3" class="flex items-center cursor-pointer"><span class="checklist-icon w-6 h-6 border-2 border-gray-300 rounded-md mr-4 flex-shrink-0 flex items-center justify-center"><svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span><span class="font-semibold">Enable API Connection</span></label><div class="instructions pl-10 pt-2 text-gray-600 text-sm hidden">In Docker Desktop, go to Settings ⚙️ > Features in development. Check "Enable host-side TCP support" and note the port number. Click "Apply & Restart".</div></li></ul></div>
-                </section>
-
-                <!-- Station 3: Assembly -->
-                <section id="assembly" class="mb-16 scroll-mt-32">
-                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 3: The Assembly Line</h3>
-                    <div class="bg-slate-800 text-white p-6 rounded-lg shadow-lg relative"><div class="code-annotation" style="top: 10px; right: 10px;" data-title="Part 1: The Mind" data-text="This 'LanguageModel' class is the electrical panel. It's the code that connects to the AI 'power plant' running in Docker, allowing LIN to send prompts and receive plans.">1</div><div class="code-annotation" style="top: 150px; right: 10px;" data-title="Part 2: The Hands" data-text="These functions are LIN's 'power tools.' They define the actual actions LIN can take, like running code or getting your input.">2</div><div class="code-annotation" style="top: 250px; right: 10px;" data-title="Part 3: The Spec Sheet" data-text="This logic manages LIN's configuration. The first time you run the program, it will ask for your business details to create a custom 'spec sheet' (config.py).">3</div><div class="code-annotation" style="top: 400px; right: 10px;" data-title="Part 4: The Foreman" data-text="The 'AutonomousAgent' class is the foreman. It manages the whole operation, from creating a plan to executing it step-by-step using its tools.">4</div><pre class="overflow-x-auto"><code class="language-python"># For demonstration, a shortened version of the lin.py code is shown.
-# The full code creates a single file to run your agent.
-import os, json, requests
-
-# PART 1: The Reasoning Engine (The "Mind")
-class LanguageModel:
-    def __init__(self, base_url="http://localhost:12434"): # ... connection logic
-        pass
-# PART 2: The Tools (The "Hands")
-def run_code_interpreter(code_to_run): # ... code execution logic
-    return "Code executed."
-# PART 3: Configuration Management (The "Spec Sheet")
-def load_or_create_config(): # ... logic to create or load config.py
-    return {"owner_name": "Contractor"}
-# PART 4: The Autonomous Agent (The "Foreman")
-class AutonomousAgent:
-    def __init__(self, name="LIN"): # ... initialization logic
-        pass
-    def run(self): # ... main agent loop
-        pass
-# PART 5: The Main Entry Point ("Turn on the Power")
-if __name__ == "__main__":
-    agent = AutonomousAgent()
-    agent.run()
-                </code></pre></div>
-                </section>
-
-                <!-- Station 4: Showcase -->
-                <section id="showcase" class="mb-16 scroll-mt-32">
-                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Station 4: Job Site Showcase</h3>
-                    <div class="max-w-3xl mx-auto bg-secondary rounded-lg shadow-lg p-4 flex flex-col h-[500px]"><div id="chat-window" class="flex-grow overflow-y-auto p-4 space-y-4"><div class="flex justify-start"><div class="bg-gray-200 p-3 rounded-lg max-w-xs">Hello! I'm LIN. What can I do for you? Try a demo below.</div></div></div><div class="p-4 border-t border-gray-200 flex flex-wrap gap-2 justify-center"><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="quote">Draft Follow-up Email</button><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="materials">Research Materials</button><button class="demo-btn bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition" data-scenario="proposal">Draft Proposal Scope</button></div></div>
-                </section>
-                
-                <!-- New Contact Form Section -->
-                <section id="contact" class="scroll-mt-32">
-                    <h3 class="text-3xl font-bold mb-8 text-center md:text-left">Start Your Project</h3>
-                     <div id="form-container" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-                        <p class="text-center text-gray-600 mb-6">Have a question or a project in mind? Fill out the form below to get in touch with us.</p>
-                        <form id="contact-form">
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name <span class="text-red-500">*</span></label>
-                                    <input type="text" name="name" id="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent">
-                                </div>
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address <span class="text-red-500">*</span></label>
-                                    <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent">
-                                </div>
-                                 <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                                    <input type="tel" name="phone" id="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent">
-                                </div>
-                                <div>
-                                    <label for="message" class="block text-sm font-medium text-gray-700">Tell us about your project</label>
-                                    <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-accent focus:border-accent"></textarea>
-                                </div>
-                                <!-- A2P Compliance Section -->
-                                <div class="pt-4">
-                                     <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                             <input id="consent" name="consent" type="checkbox" required class="focus:ring-accent h-4 w-4 text-accent border-gray-300 rounded">
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                             <label for="consent" class="text-gray-600">I consent to receive automated promotional and informational messages from The AI Depot. Message and data rates may apply. Reply STOP to opt out.</label>
-                                        </div>
-                                     </div>
-                                     <p class="text-xs text-gray-500 mt-4"><span class="text-red-500">*</span> Indicates a required field</p>
-                                     <p class="text-xs text-gray-500 mt-2">By submitting this form, you agree to our <a href="termsofservice.html" class="underline hover:text-accent">Terms of Service</a> and <a href="privacypolicy.html" class="underline hover:text-accent">Privacy Policy</a>.</p>
-                                </div>
-                            </div>
-                            <div class="mt-6">
-                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
-                                    Send Message
-                                </button>
-                            </div>
-                        </form>
+                    <div class="mt-6">
+                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
+                            Send Message
+                        </button>
                     </div>
-                </section>
+                </form>
             </div>
-        </main>
-    </div>
-    
-    <!-- Footer Section -->
-    <footer class="bg-slate-800 text-gray-300 mt-16">
-        <div class="container mx-auto px-6 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-                <!-- Appointment & Legal -->
-                <div>
-                    <h4 class="font-bold text-lg text-white mb-4">Book a Consultation</h4>
-                    <p class="text-sm mb-4">Ready to see how an AI assistant can transform your business? Set an appointment today.</p>
-                    <a href="https://api.leadconnectorhq.com/widget/otl/vINX8cWBL?slug=the-ai-depot-personal-calendar-xgzgq9c_e" target="_blank" class="inline-block bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
-                        Set an Appointment
-                    </a>
-                     <div class="mt-6 text-sm whitespace-nowrap">
-                        <a href="privacypolicy.html" class="hover:text-accent transition underline">Privacy Policy</a>
-                        <span class="mx-2">|</span>
-                        <a href="termsofservice.html" class="hover:text-accent transition underline">Terms of Service</a>
-                    </div>
-                </div>
-                <!-- Social Media -->
-                <div>
-                    <h4 class="font-bold text-lg text-white mb-4">Follow Us</h4>
-                    <div class="social-icons flex justify-center md:justify-start space-x-5 text-2xl">
-                        <a href="https://www.youtube.com/@TheAIDepotChannel" target="_blank" class="hover:text-accent transition"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com/TheAIDepot_3690" target="_blank" class="hover:text-accent transition"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/in/the-ai-depot-241109360/" target="_blank" class="hover:text-accent transition"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.tiktok.com/@theaidepot8" target="_blank" class="hover:text-accent transition"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=61576271914774" target="_blank" class="hover:text-accent transition"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank" class="hover:text-accent transition"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <!-- Contact Info -->
-                 <div>
-                    <h4 class="font-bold text-lg text-white mb-4">Contact Us</h4>
-                     <ul class="space-y-2 text-sm">
-                         <li><p>The AI Depot</p></li>
-                         <li><a href="mailto:hello@theaidepot.online" class="hover:text-accent transition">hello@theaidepot.online</a></li>
-                         <li><a href="tel:+18447143690" class="hover:text-accent transition">(844) 714-3690</a></li>
-                     </ul>
-                </div>
-            </div>
-            <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-6">
-                &copy; 2025 The AI Depot. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Popup Modal for Code Annotations -->
-    <div id="popup-overlay" class="popup-overlay hidden"><div class="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full relative"><button id="close-popup" class="absolute top-2 right-4 text-2xl font-bold text-gray-500 hover:text-gray-800">&times;</button><h4 id="popup-title" class="text-2xl font-bold mb-4 text-accent"></h4><p id="popup-text" class="text-gray-700"></p></div></div>
+        </section>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Checklist interaction
-            const checklistItems = document.querySelectorAll('.checklist-item input');
-            checklistItems.forEach(item => {
-                item.addEventListener('change', function() {
-                    const instructions = this.parentElement.querySelector('.instructions');
-                    if (this.checked) { instructions.style.display = 'block'; } 
-                    else { instructions.style.display = 'none'; }
-                });
-            });
-
-            // Code annotation popup
-            const annotations = document.querySelectorAll('.code-annotation');
-            const popupOverlay = document.getElementById('popup-overlay');
-            const popupTitle = document.getElementById('popup-title');
-            const popupText = document.getElementById('popup-text');
-            const closePopup = document.getElementById('close-popup');
-
-            annotations.forEach(annotation => {
-                annotation.addEventListener('click', function() {
-                    popupTitle.textContent = this.dataset.title;
-                    popupText.textContent = this.dataset.text;
-                    popupOverlay.classList.remove('hidden');
-                });
-            });
-            function hidePopup() { popupOverlay.classList.add('hidden'); }
-            closePopup.addEventListener('click', hidePopup);
-            popupOverlay.addEventListener('click', (event) => { if (event.target === popupOverlay) hidePopup(); });
-
-            // Showcase Demo
-            const demoButtons = document.querySelectorAll('.demo-btn');
-            const chatWindow = document.getElementById('chat-window');
-            const scenarios = {
-                quote: [{ from: 'user', text: "Draft a follow-up email for a quote." },{ from: 'lin', text: "Of course. Here is a draft:\n\nSubject: Following up on your proposal\n\nHi [Client Name],\nHope you're having a great week. I'm just following up on the proposal I sent over. Please let me know if you have any questions.\n\nBest,\n[Your Name]" }],
-                materials: [{ from: 'user', text: "Research material prices." },{ from: 'lin', text: "Based on my research:\n- Supplier A: ~$15/sq. ft.\n- Supplier B: ~$14.50/sq. ft.\n- Supplier C: ~$15.25/sq. ft." }],
-                proposal: [{ from: 'user', text: "Draft an initial scope of work." },{ from: 'lin', text: "Here is a starting scope of work:\n\n1. Demolition\n2. Foundation\n3. Framing\n4. Decking & Railings\n5. Site Cleanup" }]
-            };
-            demoButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const scenario = scenarios[this.dataset.scenario];
-                    if (!scenario) return;
-                    addMessageToChat(scenario[0].from, scenario[0].text);
-                    setTimeout(() => addMessageToChat(scenario[1].from, scenario[1].text), 800);
-                });
-            });
-            function addMessageToChat(from, text) {
-                const wrapper = document.createElement('div');
-                const bubble = document.createElement('div');
-                bubble.classList.add('p-3', 'rounded-lg', 'max-w-md');
-                bubble.innerText = text;
-                if (from === 'user') {
-                    wrapper.classList.add('flex', 'justify-end');
-                    bubble.classList.add('bg-accent', 'text-white');
-                } else {
-                    wrapper.classList.add('flex', 'justify-start');
-                    bubble.classList.add('bg-gray-200');
-                }
-                wrapper.appendChild(bubble);
-                chatWindow.appendChild(wrapper);
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }
-
-            // Active nav state on scroll
-            const sections = document.querySelectorAll('#workshop-content section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-                        });
-                    }
-                });
-            }, { rootMargin: "-50% 0px -50% 0px" });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // PDF Dropdown Logic
-            const pdfButton = document.getElementById('pdf-button');
-            const pdfMenu = document.getElementById('pdf-menu');
-            const pdfDropdownContainer = document.getElementById('pdf-dropdown-container');
-            if(pdfButton && pdfMenu && pdfDropdownContainer) {
-                pdfButton.addEventListener('click', function() {
-                    pdfMenu.classList.toggle('hidden');
-                });
-                document.addEventListener('click', function(event) {
-                    if (!pdfDropdownContainer.contains(event.target)) {
-                        pdfMenu.classList.add('hidden');
-                    }
-                });
-            }
-
-            // Functional Contact Form Logic
             const contactForm = document.getElementById('contact-form');
             const formContainer = document.getElementById('form-container');
             
             contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Stop the default form submission
+                event.preventDefault();
 
-                const webhookUrl = 'https://webhook.site/YOUR_UNIQUE_ID'; // Replace with your actual webhook.site URL
+                // This URL points to the local "Mail Room" server we will run.
+                const webhookUrl = 'http://localhost:5003/submit'; 
                 const formData = new FormData(contactForm);
                 const data = Object.fromEntries(formData.entries());
 
@@ -421,9 +103,7 @@ if __name__ == "__main__":
                 fetch(webhookUrl, {
                     method: 'POST',
                     body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: { 'Content-Type': 'application/json' }
                 })
                 .then(response => {
                     if (response.ok) {
@@ -442,12 +122,11 @@ if __name__ == "__main__":
                     formContainer.innerHTML = `
                         <div class="text-center p-8">
                             <h3 class="text-2xl font-bold text-red-600 mb-4">Submission Failed</h3>
-                            <p class="text-gray-700">Sorry, there was an error sending your message. Please try again later.</p>
+                            <p class="text-gray-700">Sorry, there was an error sending your message. Please ensure the local webhook server is running and try again.</p>
                         </div>
                     `;
                 });
             });
-
         });
     </script>
 </body>
